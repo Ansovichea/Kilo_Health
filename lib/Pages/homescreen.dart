@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:kiloheart/Pages/detail.dart';
 import 'package:kiloheart/class_icon&image/categories.dart';
 import 'package:kiloheart/class_icon&image/controllImge.dart';
 
@@ -188,6 +191,9 @@ Widget categoriesList() {
 Widget information() {
   final image = sliderImage();
   return InkWell(
+    onTap: () {
+      Get.to(() => Detail());
+    },
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: GridView.builder(
@@ -237,7 +243,10 @@ Widget information() {
                     'higggggggghggggggggggghghg',
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text('hi')
+                  Text(
+                    'hi',
+                    overflow: TextOverflow.ellipsis,
+                  )
                 ],
               ),
             ),
