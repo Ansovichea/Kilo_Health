@@ -82,11 +82,11 @@ Widget image() {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(30),
           child: Image.network(
               'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-              height: 171,
-              width: 380,
+              height: 150,
+              width: 330,
               fit: BoxFit.cover),
         ),
       ],
@@ -116,7 +116,7 @@ Widget question() {
 
 Widget description() {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.all(8),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

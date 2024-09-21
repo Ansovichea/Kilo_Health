@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kiloheart/Pages/homescreen.dart';
+import 'package:kiloheart/Pages/notication_screen.dart';
 
 class Daskboard extends StatefulWidget {
   const Daskboard({super.key});
@@ -9,7 +10,12 @@ class Daskboard extends StatefulWidget {
 }
 
 class _NavigationbarState extends State<Daskboard> {
-  final listscreen = [Homescreen(), Homescreen(), Homescreen(), Homescreen()];
+  final listscreen = [
+    Homescreen(),
+    Homescreen(),
+    NoticationScreen(),
+    Homescreen()
+  ];
   int currentindex = 0;
   void ontap(int index) {
     setState(() {
