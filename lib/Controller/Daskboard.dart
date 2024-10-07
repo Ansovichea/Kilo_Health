@@ -3,6 +3,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:kiloheart/Pages/homescreen.dart';
 import 'package:kiloheart/Pages/message_screen.dart';
 import 'package:kiloheart/Pages/notification.dart';
+import 'package:kiloheart/Pages/profile_screen.dart';
 import 'package:kiloheart/Pages/search_screen.dart';
 
 class Daskboard extends StatefulWidget {
@@ -17,7 +18,7 @@ class _NavigationbarState extends State<Daskboard> {
     Homescreen(),
     MessageScreen(),
     NotificationScreen(),
-    Homescreen()
+    ProfileScreen()
   ];
   int currentindex = 0;
   void ontap(int index) {
