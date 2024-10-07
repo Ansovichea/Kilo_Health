@@ -38,8 +38,10 @@ dependencies:
   carousel_slider: ^4.0.0
   flutter_image_slideshow: ^0.1.6
   get: ^4.6.6
-
-dev_dependencies:
+  flutter_chat_ui: ^1.6.15
+  stream_video_flutter: ^0.5.5
+  file_picker: ^8.1.2
+fldev_dependencies:
   flutter_test:
     sdk: flutter
 

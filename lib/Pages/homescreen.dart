@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:kiloheart/Pages/detail.dart';
+import 'package:kiloheart/Pages/search_screen.dart';
 import 'package:kiloheart/class_icon&image/categories.dart';
 import 'package:kiloheart/class_icon&image/controllImge.dart';
 
@@ -13,7 +13,15 @@ class Homescreen extends StatefulWidget {
   State<Homescreen> createState() => _HomescreenState();
 }
 
-class _HomescreenState extends State<Homescreen> {
+class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(vsync: this, length: categories.length);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +46,7 @@ class _HomescreenState extends State<Homescreen> {
           ),
           Padding(
             padding: EdgeInsets.all(20),
-            child: categoriesList(),
+            child: categoriesList(tabController),
           ),
           information(),
         ],
@@ -47,7 +55,7 @@ class _HomescreenState extends State<Homescreen> {
   }
 }
 
-// bar
+// AppBar
 AppBar appBar() {
   return AppBar(
     actions: [
@@ -78,7 +86,7 @@ AppBar appBar() {
   );
 }
 
-// search bar
+// Search Bar
 Widget searchBar() {
   return Container(
     decoration: BoxDecoration(
@@ -94,7 +102,12 @@ Widget searchBar() {
     child: TextField(
       decoration: InputDecoration(
         border: InputBorder.none,
-        suffixIcon: Icon(Icons.search, size: 28),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.search, size: 28),
+          onPressed: () {
+            Get.to(() => SearchScreen());
+          },
+        ),
         hintText: 'Search',
         hintStyle:
             TextStyle(fontSize: 18, color: Color.fromARGB(164, 136, 136, 136)),
@@ -103,39 +116,78 @@ Widget searchBar() {
   );
 }
 
+// Image Slideshow
 Widget slideImage() {
-  final sliderimage = sliderImage();
-
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 30),
     child: ImageSlideshow(
       width: double.infinity,
       height: 200,
       initialPage: 0,
-      indicatorColor: Colors.white,
+      indicatorColor: Colors.blue,
       indicatorBackgroundColor: Colors.grey,
-      children: sliderimage.urlImgae.map((url) {
+      children: getHomescreen.map((item) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            url,
-            fit: BoxFit.cover,
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.network(
+                item.image,
+                fit: BoxFit.cover,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return Center(child: Text('Failed to load image'));
+                },
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.8),
+                        Colors.transparent
+                      ],
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        item.description,
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            },
-            errorBuilder: (BuildContext context, Object exception,
-                StackTrace? stackTrace) {
-              return Center(child: Text('Failed to load image'));
-            },
+              ),
+            ],
           ),
         );
       }).toList(),
@@ -145,9 +197,10 @@ Widget slideImage() {
   );
 }
 
-// Categories
-Widget categoriesList() {
+// Categories List
+Widget categoriesList(TabController tabController) {
   final cati = categories;
+
   return Container(
     height: 100,
     child: ListView.builder(
@@ -160,7 +213,7 @@ Widget categoriesList() {
             height: 100,
             width: 100,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 0, 0, 0),
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Padding(
@@ -176,7 +229,7 @@ Widget categoriesList() {
                   SizedBox(height: 8),
                   Text(
                     cati[index].name,
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12, color: Colors.white),
                   ),
                 ],
               ),
@@ -188,8 +241,9 @@ Widget categoriesList() {
   );
 }
 
+// Information Grid
 Widget information() {
-  final image = sliderImage();
+  final dataHomescreen = getHomescreen;
   return InkWell(
     onTap: () {
       Get.to(() => Detail());
@@ -205,7 +259,7 @@ Widget information() {
           mainAxisSpacing: 5,
           childAspectRatio: 1,
         ),
-        itemCount: image.urlImgae.length,
+        itemCount: dataHomescreen.length,
         itemBuilder: (context, index) {
           return Card(
             elevation: 3,
@@ -219,7 +273,7 @@ Widget information() {
                 children: [
                   Expanded(
                     child: Image.network(
-                      image.urlImgae[index],
+                      dataHomescreen[index].image,
                       fit: BoxFit.cover,
                       loadingBuilder: (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
@@ -240,11 +294,11 @@ Widget information() {
                     ),
                   ),
                   Text(
-                    'higggggggghggggggggggghghg',
+                    dataHomescreen[index].title,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    'hi',
+                    dataHomescreen[index].description,
                     overflow: TextOverflow.ellipsis,
                   )
                 ],

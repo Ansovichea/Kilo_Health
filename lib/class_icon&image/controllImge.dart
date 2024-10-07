@@ -1,10 +1,35 @@
-class sliderImage {
-  final List<dynamic> urlImgae = [
-    'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Fimages&psig=AOvVaw0bADOK2OnqTrZmCD09q56z&ust=1726821045842000&source=images&cd=vfe&opi=89978449&ved=0CBQQjhxqFwoTCNDHrOvLzogDFQAAAAAdAAAAABAE',
-    'https://i0.wp.com/picjumbo.com/wp-content/uploads/magical-spring-forest-scenery-during-morning-breeze-free-photo.jpg?w=600&quality=80',
-    'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',
-    'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg'
-  ];
+class HomescreenData {
+  String title;
+  String image;
+  String description;
+  HomescreenData(
+      {required this.title, required this.image, required this.description});
 }
+
+final List<String> titles = [
+  'Treatments',
+  'Specialists',
+  'Lung Diseases',
+  'Treatments',
+];
+final List<String> descriptions = [
+  'View all treatments',
+  'Find a specialist in Kidney care',
+  'Learn about lung diseases',
+  'View all treatments',
+];
+final List<String> images = [
+  'https://img.freepik.com/free-photo/digital-art-beautiful-mountains_23-2151123686.jpg',
+  'https://static.vecteezy.com/system/resources/thumbnails/025/067/762/small/4k-beautiful-colorful-abstract-wallpaper-photo.jpg',
+  'https://marketplace.canva.com/EAE-xnqWvJk/1/0/1600w/canva-retro-smoke-and-round-light-desktop-wallpapers-JLofAI27pCg.jpg',
+  'https://i0.wp.com/i.ebayimg.com/images/g/zV4AAOSwIMJkSA-e/s-l1200.jpg'
+];
+
+final List<HomescreenData> getHomescreen = List.generate(
+  titles.length,
+  (index) => HomescreenData(
+    title: titles[index],
+    description: descriptions[index],
+    image: images[index],
+  ),
+);
