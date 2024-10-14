@@ -41,6 +41,9 @@ dependencies:
   flutter_chat_ui: ^1.6.15
   stream_video_flutter: ^0.5.5
   file_picker: ^8.1.2
+  flutter_widget_from_html: ^0.15.2
+  url_launcher: ^6.1.10
+
 fldev_dependencies:
   flutter_test:
     sdk: flutter

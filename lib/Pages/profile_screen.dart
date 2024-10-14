@@ -7,38 +7,40 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
-          child: Column(
-            children: [
-              const CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg'),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Chea',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildStatItem(Icons.favorite, 'Heart rate', '215bpm'),
-                  _buildStatItem(
-                      Icons.local_fire_department, 'Calories', '756cal'),
-                  _buildStatItem(Icons.fitness_center, 'Weight', '103lbs'),
-                ],
-              ),
-              SizedBox(height: 20),
-              _buildListItem(Icons.bookmark, 'My Saved'),
-              _buildListItem(Icons.calendar_today, 'Appointmnet'),
-              _buildListItem(Icons.payment, 'Payment Method'),
-              _buildListItem(Icons.question_answer, 'FAQs'),
-              _buildListItem(Icons.logout, 'Logout'),
-            ],
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg'),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Chea',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildStatItem(Icons.favorite, 'Heart rate', '215bpm'),
+                    _buildStatItem(
+                        Icons.local_fire_department, 'Calories', '756cal'),
+                    _buildStatItem(Icons.fitness_center, 'Weight', '103lbs'),
+                  ],
+                ),
+                SizedBox(height: 20),
+                _buildListItem(Icons.bookmark, 'My Saved'),
+                _buildListItem(Icons.calendar_today, 'Appointmnet'),
+                _buildListItem(Icons.payment, 'Payment Method'),
+                _buildListItem(Icons.question_answer, 'FAQs'),
+                _buildListItem(Icons.logout, 'Logout'),
+              ],
+            ),
           ),
         ),
       ),
@@ -68,25 +70,22 @@ class ProfileScreen extends StatelessWidget {
       child: Card(
         elevation: 1,
         shadowColor: Colors.blue,
-        child: SizedBox(
-          height: 80,
-          child: ListTile(
-            leading: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.blue[100],
-              ),
-              child: Icon(
-                icon,
-                color: Colors.blue,
-                size: 25,
-              ),
+        child: ListTile(
+          leading: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.blue[100],
             ),
-            title: Text(title),
-            trailing: const Icon(Icons.chevron_right),
+            child: Icon(
+              icon,
+              color: Colors.blue,
+              size: 25,
+            ),
           ),
+          title: Text(title),
+          trailing: const Icon(Icons.chevron_right),
         ),
       ),
     );
